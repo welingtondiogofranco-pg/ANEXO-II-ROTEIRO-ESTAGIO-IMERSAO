@@ -3,101 +3,496 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roteiro de Projeto – Estágio de Imersão | UEPG</title>
+    <title>Anexo II - Roteiro de Projeto - Estágio de Imersão - UEPG</title>
     <style>
         * { box-sizing: border-box; }
         body {
-            margin: 0; padding: 40px; background: #f4f6f9;
-            font-family: Arial, Helvetica, sans-serif; color: #222; line-height: 1.8;
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            color: #222;
+            line-height: 1.7;
+            background: #f5f5f5;
         }
-        .documento {
-            max-width: 950px; margin: auto; background: #FFF; padding: 60px;
-            border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,.08);
+        .page {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 50px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.10);
+            border-radius: 8px;
         }
+
+        /* BOTÃO DE IMPRESSÃO - FIXO NO TOPO */
+        .btn-imprimir {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #003366;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+        .btn-imprimir:hover { background: #002244; }
+        .btn-imprimir::before { content: "🖨️ "; }
+
+        /* BOTÃO DE LEITURA DE TELA */
+        .btn-leitura {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #003366;
+            color: #fff;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 1100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            font-family: Arial, sans-serif;
+        }
+        .btn-leitura:hover {
+            background: #002244;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+        .btn-leitura.lendo {
+            background: #c0392b;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(192, 57, 43, 0.7); }
+            50% { box-shadow: 0 0 0 12px rgba(192, 57, 43, 0); }
+        }
+        .btn-leitura .icone { font-size: 18px; }
+
+        /* ===== ACESSIBILIDADE eMAG ===== */
+        .skip-to-content {
+            position: absolute;
+            left: -9999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 12px;
+            z-index: 1000;
+        }
+        .skip-to-content:focus {
+            left: 10px;
+            top: 10px;
+            width: auto;
+            height: auto;
+        }
+        .accessibility-shortcuts {
+            background: #f0f4f8;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .accessibility-shortcuts a {
+            margin: 0 10px;
+            color: #0369a1;
+            text-decoration: none;
+        }
+        .accessibility-shortcuts a:hover {
+            text-decoration: underline;
+        }
+        .acessibilidade-info {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+            color: #555;
+            text-align: center;
+        }
+
+        /* CABEÇALHO – LOGOS DISTRIBUÍDAS */
         .header {
-            display: flex; justify-content: center; align-items: center;
-            border-bottom: 3px solid #003366; padding-bottom: 20px; margin-bottom: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 2px solid #003366;
+            padding-bottom: 20px;
+            margin-bottom: 35px;
         }
         .header-logos {
-            display: flex; align-items: center; justify-content: space-between;
-            width: 100%; gap: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 18px;
         }
-        .header-logos img { height: 70px; width: auto; object-fit: contain; }
-        .topo {
-            text-align: center; border-bottom: 3px solid #003366;
-            padding-bottom: 25px; margin-bottom: 45px;
+        .header-logos img {
+            height: 70px;
+            width: auto;
+            object-fit: contain;
         }
-        .titulo { font-size: 24px; font-weight: bold; color: #003366; text-transform: uppercase; line-height: 1.5; }
-        .subtitulo { margin-top: 10px; color: #555; font-size: 16px; }
+
+        /* TOPO DO ANEXO */
+        .topo-anexo {
+            text-align: center;
+            border-bottom: 2px solid #003366;
+            padding-bottom: 25px;
+            margin-bottom: 45px;
+        }
+        .topo-anexo .numero-anexo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #003366;
+            text-transform: uppercase;
+        }
+        .topo-anexo .subtitulo-anexo {
+            margin-top: 10px;
+            color: #444;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* TÍTULOS E SEÇÕES */
+        h1 {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 35px;
+            text-transform: uppercase;
+            line-height: 1.4;
+            font-weight: bold;
+            color: #003366;
+        }
         .secao { margin-top: 35px; }
         .secao h3 {
-            color: #003366; border-bottom: 2px solid #003366; padding-bottom: 6px;
-            margin-bottom: 20px; font-size: 18px;
+            color: #003366;
+            border-bottom: 2px solid #003366;
+            padding-bottom: 6px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
         }
         .linha-documento { margin: 15px 0; }
-        .campo-inline {
-            display: inline-block; min-width: 180px; border-bottom: 1px solid #000;
-            padding: 2px 6px; margin-left: 5px; outline: none; transition: .2s;
+
+        /* CAMPOS FIXOS (UMA LINHA) */
+        .campo-fixo {
+            display: inline-block;
+            border-bottom: 1px solid #000;
+            padding: 2px 6px;
+            outline: none;
+            min-height: 24px;
+            max-height: 48px;
+            line-height: 1.4;
+            background: transparent;
+            transition: background 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: baseline;
         }
-        .campo-inline:focus { border-bottom: 2px solid #003366; background: #eef5ff; }
-        .campo-inline:empty::before {
-            content: attr(data-placeholder); color: #999; font-style: italic; pointer-events: none;
+        .campo-fixo:focus {
+            background: #eef5ff;
+            border-bottom-color: #003366;
         }
-        .campo-medio { min-width: 220px; }
-        .campo-grande { min-width: 420px; }
-        .texto-livre {
-            width: 100%; min-height: 160px; border: 1px solid #CCC; border-radius: 8px;
-            padding: 18px; margin-top: 10px; outline: none; transition: .2s; background: #fcfcfc;
+        .campo-fixo:empty::before {
+            content: attr(data-placeholder);
+            color: #999;
+            font-style: italic;
+            pointer-events: none;
         }
-        .texto-livre:focus { border-color: #003366; background: #f9fbff; }
-        .texto-livre:empty::before {
-            content: attr(data-placeholder); color: #888; font-style: italic; white-space: pre-line;
+
+        /* Tamanhos para campos de uma linha */
+        .campo-fixo-pequeno { width: 90px; max-width: 90px; min-width: 90px; }
+        .campo-fixo-medio   { width: 220px; max-width: 220px; min-width: 220px; }
+        .campo-fixo-grande  { width: 420px; max-width: 420px; min-width: 420px; }
+
+        /* CAMPOS DE BLOCO (MÚLTIPLAS LINHAS) */
+        .campo-bloco {
+            display: block;
+            width: 100%;
+            min-height: 160px;
+            border: 1px solid #999;
+            padding: 18px;
+            margin-top: 10px;
+            outline: none;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            border-radius: 8px;
+            background: #fcfcfc;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            transition: background 0.2s, border-color 0.2s;
         }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        table th { background: #003366; color: white; padding: 12px; border: 1px solid #DDD; }
-        table td { border: 1px solid #DDD; padding: 10px; vertical-align: top; }
-        .celula-editavel { min-height: 70px; outline: none; }
-        .celula-editavel:empty::before { content: attr(data-placeholder); color: #888; font-style: italic; }
-        .campo-data {
-            border: none; border-bottom: 1px solid #000; background: transparent;
-            padding: 4px 6px; margin-left: 6px; margin-right: 6px; font-size: 15px;
-            outline: none; transition: .2s; min-width: 180px;
+        .campo-bloco:focus {
+            background: #f9fbff;
+            border-color: #003366;
+            box-shadow: 0 0 0 2px rgba(0,51,102,0.1);
         }
-        .campo-data:focus { border-bottom: 2px solid #003366; background: #eef5ff; }
+        .campo-bloco:empty::before {
+            content: attr(data-placeholder);
+            color: #888;
+            font-style: italic;
+            white-space: pre-line;
+            pointer-events: none;
+        }
+
+        /* CAMPOS DE DATA */
+        input[type="date"], input[type="number"].campo-data {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 14px;
+            outline: none;
+            background: #fff;
+            font-family: inherit;
+            margin-left: 6px;
+            margin-right: 6px;
+        }
+        input[type="date"]:focus, input[type="number"].campo-data:focus {
+            border-color: #003366;
+            box-shadow: 0 0 0 2px rgba(0,51,102,0.1);
+        }
+
+        /* TABELA DO CRONOGRAMA */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        table th {
+            background: #003366;
+            color: white;
+            padding: 12px;
+            border: 1px solid #DDD;
+        }
+        table td {
+            border: 1px solid #DDD;
+            padding: 10px;
+            vertical-align: top;
+        }
+        .celula-editavel {
+            min-height: 70px;
+            outline: none;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+        }
+        .celula-editavel:empty::before {
+            content: attr(data-placeholder);
+            color: #888;
+            font-style: italic;
+        }
+        .celula-editavel:focus {
+            background: #eef5ff;
+        }
+
+        /* DESTAQUES VISUAIS */
         .ajuda {
-            margin-top: 6px; font-size: 13px; color: #555; background: #f5f7fb;
-            border-left: 4px solid #003366; padding: 10px; border-radius: 6px;
+            margin-top: 6px;
+            font-size: 13px;
+            color: #444;
+            background: #f0f4f8;
+            border-left: 4px solid #003366;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
         }
-        .aviso {
-            display: inline-block; background: #fff3cd; border: 1px solid #ffc107;
-            border-radius: 6px; padding: 6px 12px; font-weight: bold; font-size: 14px; margin-left: 10px;
+        .aviso-horas {
+            display: inline-block;
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-left: 10px;
         }
-        .assinaturas { display: flex; justify-content: space-between; gap: 30px; margin-top: 90px; }
-        .assinatura { width: 33%; text-align: center; }
-        .linha-assinatura { border-top: 1px solid #000; margin-bottom: 10px; }
+        .aviso-horas::before {
+            content: "⏱️ ";
+        }
+
+        /* ASSINATURAS */
+        .assinaturas {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-top: 90px;
+        }
+        .assinatura {
+            width: 33%;
+            text-align: center;
+        }
+        .linha-assinatura {
+            border-top: 1px solid #000;
+            margin-bottom: 10px;
+            padding-top: 10px;
+            font-size: 14px;
+        }
+
+        /* IMPRESSÃO */
         @media print {
-            body { background: #fff; padding: 0; }
-            .documento { box-shadow: none; padding: 15mm; border-radius: 0; }
-            .header { border-bottom: 2px solid #000; }
-            .topo { border-bottom: 2px solid #000; }
-            .texto-livre, .celula-editavel { background: #fff; }
-            .ajuda { background: #fff; border-left: 1px solid #000; }
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+            body {
+                margin: 0 !important;
+                background: #fff !important;
+                padding: 0 !important;
+                color: #000 !important;
+            }
+            .page {
+                max-width: 100% !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border-radius: 0 !important;
+            }
+            /* Ocultar widgets e botões */
+            .btn-imprimir,
+            .btn-leitura,
+            .accessibility-shortcuts,
+            .acessibilidade-info,
+            .skip-to-content,
+            [vw],
+            .vw-enabled,
+            .vw-access-button,
+            .vw-plugin-wrapper,
+            .vw-plugin-top-wrapper,
+            .vpw-container,
+            .vpw-iframe-container,
+            iframe[src*="vlibras"],
+            .uwy-userway,
+            .userway-accessibility-widget,
+            [data-account],
+            #userway,
+            div[id*="userway"],
+            div[class*="userway"],
+            iframe[src*="userway"],
+            [aria-label*="VLibras"],
+            [aria-label*="UserWay"],
+            [style*="position: fixed"],
+            [style*="position:fixed"] {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                height: 0 !important;
+                max-height: 0 !important;
+                width: 0 !important;
+                max-width: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border: none !important;
+                position: absolute !important;
+                left: -9999px !important;
+                top: -9999px !important;
+                overflow: hidden !important;
+                z-index: -9999 !important;
+                pointer-events: none !important;
+            }
+            .header { border-bottom: 2px solid #000 !important; }
+            .topo-anexo { border-bottom: 2px solid #000 !important; }
+            .campo-fixo,
+            .campo-bloco,
+            .celula-editavel {
+                border-bottom: 1px solid #000 !important;
+                background: #fff !important;
+                color: #000 !important;
+                width: auto !important;
+                max-width: none !important;
+                min-width: auto !important;
+                white-space: normal !important;
+                overflow: visible !important;
+                text-overflow: clip !important;
+            }
+            .campo-fixo:empty::before,
+            .campo-bloco:empty::before,
+            .celula-editavel:empty::before {
+                content: "_______________________________" !important;
+                color: #000 !important;
+            }
+            input[type="date"], input[type="number"].campo-data {
+                border: none !important;
+                border-bottom: 1px solid #000 !important;
+                background: transparent !important;
+                color: #000 !important;
+                -webkit-appearance: none !important;
+                appearance: none !important;
+            }
+            .ajuda {
+                background: #fff !important;
+                border-left: 1px solid #000 !important;
+            }
+            .aviso-horas {
+                background: #fff !important;
+                border: 1px solid #000 !important;
+            }
+            table th { background: #fff !important; color: #000 !important; border: 1px solid #000 !important; }
+            table td { border: 1px solid #000 !important; }
+            h1, h2, h3, p, div, table {
+                page-break-inside: avoid !important;
+            }
         }
-        @media (max-width: 768px) {
-            body { padding: 15px; }
-            .documento { padding: 25px; }
-            .header-logos { flex-wrap: wrap; justify-content: center; gap: 10px; }
+
+        /* RESPONSIVO */
+        @media screen and (max-width: 768px) {
+            body { margin: 10px; padding: 10px; }
+            .page { padding: 20px; }
+            .header-logos { flex-direction: column; gap: 10px; }
             .header-logos img { height: 50px; }
             .assinaturas { flex-direction: column; }
             .assinatura { width: 100%; }
+            .campo-fixo-grande { width: 250px; max-width: 250px; min-width: 250px; }
+            h1 { font-size: 16px; }
+            .btn-leitura {
+                bottom: 10px;
+                right: 10px;
+                padding: 10px 14px;
+                font-size: 12px;
+            }
+            .btn-imprimir {
+                top: 10px;
+                right: 10px;
+                padding: 8px 16px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="documento">
+<!-- BOTÃO DE IMPRESSÃO -->
+<button class="btn-imprimir" onclick="imprimirDocumento()" title="Imprimir ou salvar como PDF">
+    Imprimir / Salvar PDF
+</button>
 
-    <!-- CABEÇALHO COM LOGOS REPOSICIONADAS -->
+<!-- ACESSIBILIDADE eMAG: LINK PULAR CONTEÚDO -->
+<a href="#conteudo-principal" class="skip-to-content" accesskey="1" title="Ir para o conteúdo principal (Alt + 1)">Pular para o conteúdo principal</a>
+
+<!-- eMAG: ATALHOS DE TECLADO -->
+<div class="accessibility-shortcuts" aria-label="Atalhos de acessibilidade do teclado">
+    <span>🔑 Atalhos:</span>
+    <a href="#conteudo-principal" accesskey="1">Alt + 1</a> = ir para o conteúdo |
+    <a href="#rodape-acessibilidade" accesskey="4">Alt + 4</a> = ir para o rodapé |
+    <a href="#info-acessibilidade" accesskey="0">Alt + 0</a> = acessibilidade |
+    <a href="#" onclick="alternarLeitura(); return false;" accesskey="2">Alt + 2</a> = ouvir conteúdo
+</div>
+
+<div class="page" id="conteudo-principal" tabindex="-1">
+
+    <!-- CABEÇALHO PADRONIZADO -->
     <div class="header">
         <div class="header-logos">
             <img src="secijur.png" alt="SECIJUR"
@@ -114,75 +509,75 @@
         </div>
     </div>
 
-    <!-- TOPO -->
-    <div class="topo">
-        <div class="titulo">ANEXO II</div>
-        <div class="subtitulo">
+    <!-- TOPO DO ANEXO -->
+    <div class="topo-anexo">
+        <div class="numero-anexo">ANEXO II</div>
+        <div class="subtitulo-anexo">
             ROTEIRO DE ELABORAÇÃO DE PROJETO DE EXECUÇÃO<br>
             DE ESTÁGIO DE IMERSÃO PRÁTICO-INSTITUCIONAL
         </div>
     </div>
 
-    <!-- 1. DISCENTE -->
+    <!-- 1. DADOS DO(A) DISCENTE -->
     <div class="secao">
-        <h3>1. DISCENTE</h3>
+        <h3>1. DADOS DO(A) DISCENTE</h3>
         <div class="linha-documento">
             <strong>1.1 Nome completo:</strong>
-            <span class="campo-inline campo-grande" contenteditable="true"
-                  data-placeholder="Informe seu nome completo"></span>
+            <span class="campo-fixo campo-fixo-grande" contenteditable="true"
+                  data-placeholder="Digite seu nome completo"></span>
         </div>
         <div class="linha-documento">
-            <strong>1.2 Número do registro acadêmico:</strong>
-            <span class="campo-inline campo-medio" contenteditable="true"
-                  data-placeholder="Informe seu RA"></span>
+            <strong>1.2 Número do registro acadêmico (RA):</strong>
+            <span class="campo-fixo campo-fixo-medio" contenteditable="true"
+                  data-placeholder="Nº do RA"></span>
         </div>
         <div class="linha-documento">
             <strong>1.3 Endereço completo:</strong>
-            <span class="campo-inline campo-grande" contenteditable="true"
+            <span class="campo-fixo campo-fixo-grande" contenteditable="true"
                   data-placeholder="Rua, número, bairro, cidade, CEP"></span>
         </div>
         <div class="linha-documento">
-            <strong>1.4 Número de telefone (WhatsApp):</strong>
-            <span class="campo-inline campo-medio" contenteditable="true"
+            <strong>1.4 Telefone (WhatsApp):</strong>
+            <span class="campo-fixo campo-fixo-medio" contenteditable="true"
                   data-placeholder="(00) 90000-0000"></span>
             <strong>E-mail:</strong>
-            <span class="campo-inline campo-medio" contenteditable="true"
+            <span class="campo-fixo campo-fixo-medio" contenteditable="true"
                   data-placeholder="seu.email@exemplo.com"></span>
         </div>
         <div class="linha-documento">
             <strong>1.5 Nome do(a) professor(a)-orientador(a):</strong>
-            <span class="campo-inline campo-grande" contenteditable="true"
+            <span class="campo-fixo campo-fixo-grande" contenteditable="true"
                   data-placeholder="Nome completo do(a) orientador(a)"></span>
         </div>
         <div class="linha-documento">
             <strong>1.6 Linha de pesquisa:</strong>
-            <span class="campo-inline campo-grande" contenteditable="true"
-      data-placeholder="Informe a linha de pesquisa à qual está vinculado"></span>
+            <span class="campo-fixo campo-fixo-grande" contenteditable="true"
+                  data-placeholder="Linha de pesquisa à qual você está vinculado(a)"></span>
         </div>
         <div class="linha-documento">
             <strong>1.7 Título da pesquisa:</strong>
-            <div class="texto-livre" contenteditable="true"
+            <div class="campo-bloco" contenteditable="true"
                  data-placeholder="Informe o título provisório ou definitivo da sua dissertação/pesquisa"></div>
         </div>
     </div>
 
-    <!-- 3. QUESTÕES PRÁTICAS -->
+    <!-- 3. QUESTÃO(ÕES) PRÁTICA(S) -->
     <div class="secao">
         <h3>3. APRESENTAÇÃO DA(S) QUESTÃO(ÕES) PRÁTICA(S) RELACIONADA(S) AO OBJETO DA PESQUISA</h3>
         <div class="ajuda">
-            Explique qual problema prático, institucional, jurídico, social ou administrativo motivou a pesquisa e será observado durante o estágio de imersão.
+            <strong>📌 Orientação:</strong> Explique qual problema prático, institucional, jurídico, social ou administrativo motivou a pesquisa e será observado durante o estágio de imersão.
         </div>
-        <div class="texto-livre" contenteditable="true"
+        <div class="campo-bloco" contenteditable="true"
              data-placeholder="Descreva o problema observado, a relação com a pesquisa e a relevância prática da investigação."></div>
     </div>
 
     <!-- 4. JUSTIFICATIVA -->
     <div class="secao">
-        <h3>4. JUSTIFICATIVA DA ÁREA/UNIDADE CONCEDENTE ESCOLHIDA</h3>
+        <h3>4. JUSTIFICATIVA DA UNIDADE CONCEDENTE ESCOLHIDA</h3>
         <div class="ajuda">
-            Justifique por que a instituição escolhida é relevante para o desenvolvimento da pesquisa e da imersão prática.
+            <strong>📌 Orientação:</strong> Justifique por que a instituição escolhida é relevante para o desenvolvimento da pesquisa e da imersão prática.
         </div>
-        <div class="texto-livre" contenteditable="true"
+        <div class="campo-bloco" contenteditable="true"
              data-placeholder="Explique a relação da unidade com a pesquisa, a importância institucional e a possibilidade de acesso às práticas estudadas."></div>
     </div>
 
@@ -190,24 +585,24 @@
     <div class="secao">
         <h3>5. OBJETIVOS DA IMERSÃO</h3>
         <div class="linha-documento">
-            <strong>5.1 Geral:</strong>
-            <div class="texto-livre" contenteditable="true"
+            <strong>5.1 Objetivo geral:</strong>
+            <div class="campo-bloco" contenteditable="true"
                  data-placeholder="Descreva o propósito principal da imersão."></div>
         </div>
         <div class="linha-documento">
-            <strong>5.2 Específicos:</strong>
-            <div class="texto-livre" contenteditable="true"
+            <strong>5.2 Objetivos específicos:</strong>
+            <div class="campo-bloco" contenteditable="true"
                  data-placeholder="Liste objetivos menores e mais concretos, um por linha."></div>
         </div>
     </div>
 
-    <!-- 6. ATIVIDADES -->
+    <!-- 6. ATIVIDADES PREVISTAS -->
     <div class="secao">
-        <h3>6. PREVISÃO DAS ATIVIDADES A SEREM DESENVOLVIDAS</h3>
+        <h3>6. ATIVIDADES PREVISTAS</h3>
         <div class="ajuda">
-            Informe quais atividades serão realizadas durante o período de imersão.
+            <strong>📌 Orientação:</strong> Informe quais atividades serão realizadas durante o período de imersão.
         </div>
-        <div class="texto-livre" contenteditable="true"
+        <div class="campo-bloco" contenteditable="true"
              data-placeholder="Descreva as atividades práticas que serão executadas, uma por linha."></div>
     </div>
 
@@ -215,7 +610,13 @@
     <div class="secao">
         <h3>7. CRONOGRAMA DAS ATIVIDADES</h3>
         <table>
-            <thead><tr><th>Atividade</th><th>Período</th><th>Carga Horária</th></tr></thead>
+            <thead>
+                <tr>
+                    <th>Atividade</th>
+                    <th>Período previsto</th>
+                    <th>Carga horária</th>
+                </tr>
+            </thead>
             <tbody>
                 <tr>
                     <td><div class="celula-editavel" contenteditable="true"
@@ -237,30 +638,31 @@
         </table>
     </div>
 
-    <!-- 8. PERÍODO -->
+    <!-- 8. PERÍODO DA IMERSÃO -->
     <div class="secao">
-        <h3>8. PERÍODO DA REALIZAÇÃO DA IMERSÃO</h3>
+        <h3>8. PERÍODO DE REALIZAÇÃO DA IMERSÃO</h3>
         <div class="linha-documento">
-            <strong>8.1 Previsão de tempo de duração do estágio:</strong>
-            início: <input type="date" class="campo-data">
-            término: <input type="date" class="campo-data">
+            <strong>8.1 Previsão de duração do estágio:</strong><br>
+            Início: <input type="date" class="campo-data">
+            &nbsp;&nbsp;&nbsp;
+            Término: <input type="date" class="campo-data">
         </div>
         <div class="linha-documento">
-            <strong>8.2 Previsão do total de horas no período de imersão:</strong>
+            <strong>8.2 Previsão do total de horas:</strong>
             <input type="number" min="0" max="60" placeholder="0" class="campo-data" style="width:120px;">
-            <span class="aviso">⏱️ Máximo 60 horas</span>
+            <span class="aviso-horas">Máximo 60 horas</span>
         </div>
     </div>
 
     <!-- 9. REFERÊNCIAS -->
     <div class="secao">
-        <h3>9. REFERÊNCIAS BIBLIOGRÁFICAS A SEREM CONSULTADAS</h3>
+        <h3>9. REFERÊNCIAS BIBLIOGRÁFICAS</h3>
         <div class="ajuda">
             <strong>📘 Consulte o Manual de Normalização Bibliográfica para Trabalhos Científicos da UEPG</strong> 
             para formatar corretamente suas referências. O manual está disponível no site da Biblioteca Central da UEPG 
             e no portal do Sistema de Bibliotecas.
         </div>
-        <div class="texto-livre" contenteditable="true"
+        <div class="campo-bloco" contenteditable="true"
              data-placeholder="Insira as referências conforme o manual da UEPG, uma por linha."></div>
     </div>
 
@@ -271,12 +673,261 @@
 
     <!-- ASSINATURAS -->
     <div class="assinaturas">
-        <div class="assinatura"><div class="linha-assinatura"></div>Discente</div>
-        <div class="assinatura"><div class="linha-assinatura"></div>Professor(a)-orientador(a)</div>
-        <div class="assinatura"><div class="linha-assinatura"></div>Representante da Unidade Supervisora</div>
+        <div class="assinatura">
+            <div class="linha-assinatura"></div>
+            Discente
+        </div>
+        <div class="assinatura">
+            <div class="linha-assinatura"></div>
+            Professor(a)-Orientador(a)
+        </div>
+        <div class="assinatura">
+            <div class="linha-assinatura"></div>
+            Representante da Unidade Supervisora
+        </div>
     </div>
 
 </div>
+
+<!-- BOTÃO DE LEITURA DE TELA -->
+<button class="btn-leitura" id="btnLeitura" aria-label="Ouvir conteúdo da página (Alt + 2)" title="Clique para ouvir o conteúdo em voz alta">
+    <span class="icone">🔊</span>
+    <span class="texto">Ouvir</span>
+</button>
+
+<!-- RODAPÉ DE ACESSIBILIDADE -->
+<div id="rodape-acessibilidade" class="acessibilidade-info" tabindex="-1">
+    <div id="info-acessibilidade">
+        <strong>📌 Acessibilidade – Atalhos do teclado (eMAG):</strong><br>
+        • <kbd>Alt + 1</kbd> – Ir para o conteúdo principal<br>
+        • <kbd>Alt + 2</kbd> – Ouvir conteúdo em voz alta (Leitura de Tela)<br>
+        • <kbd>Alt + 4</kbd> – Ir para este rodapé<br>
+        • <kbd>Alt + 0</kbd> – Ir para as informações de acessibilidade<br>
+        <br>
+        <strong>🔊 Ferramentas disponíveis nesta página:</strong><br>
+        ✓ <strong>VLibras</strong> – Tradutor para Língua Brasileira de Sinais<br>
+        ✓ <strong>UserWay</strong> – Painel de acessibilidade<br>
+        ✓ <strong>Leitura de Tela</strong> – Botão "🔊 Ouvir" no canto inferior direito (atalho: Alt + 2) para ouvir o conteúdo em voz alta via Web Speech API<br>
+        <br>
+        <em>Este documento segue as diretrizes da Lei Brasileira de Inclusão (LBI) e do Modelo de Acessibilidade em Governo Eletrônico (eMAG).</em>
+    </div>
+</div>
+
+<!-- VLIBRAS -->
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    });
+</script>
+
+<!-- USERWAY -->
+<script src="https://cdn.userway.org/widget.js" data-account="SEU_ID_AQUI"></script>
+
+<!-- ========== LEITURA DE TELA - WEB SPEECH API ========== -->
+<script>
+(function() {
+    const btnLeitura = document.getElementById('btnLeitura');
+    const synth = window.speechSynthesis;
+    let utterance = null;
+    let estaLendo = false;
+
+    if (!('speechSynthesis' in window)) {
+        if (btnLeitura) btnLeitura.style.display = 'none';
+        return;
+    }
+
+    function obterVozPtBr() {
+        const vozes = synth.getVoices();
+        return vozes.find(v => v.lang === 'pt-BR') || 
+               vozes.find(v => v.lang.startsWith('pt')) ||
+               vozes[0];
+    }
+
+    if (synth.onvoiceschanged !== undefined) {
+        synth.onvoiceschanged = () => {};
+    }
+
+    function obterTextoPrincipal() {
+        const seletor = document.querySelector('.page') || document.body;
+        const clone = seletor.cloneNode(true);
+        
+        const elementosParaRemover = clone.querySelectorAll(
+            '.btn-imprimir, .btn-leitura, .accessibility-shortcuts, ' +
+            '.acessibilidade-info, .skip-to-content, nav, footer, ' +
+            'button, script, style, [data-placeholder]'
+        );
+        elementosParaRemover.forEach(el => el.remove());
+        
+        clone.querySelectorAll('.campo-fixo, .campo-bloco, .celula-editavel').forEach(campo => {
+            if (!campo.textContent.trim()) {
+                campo.textContent = '[campo em branco]';
+            }
+        });
+        
+        return clone.innerText || clone.textContent;
+    }
+
+    function dividirTexto(texto, maxLen) {
+        const chunks = [];
+        const sentencas = texto.match(/[^.!?]+[.!?]+/g) || [texto];
+        let chunkAtual = '';
+
+        sentencas.forEach(sentenca => {
+            if ((chunkAtual + sentenca).length > maxLen && chunkAtual) {
+                chunks.push(chunkAtual.trim());
+                chunkAtual = sentenca;
+            } else {
+                chunkAtual += sentenca;
+            }
+        });
+
+        if (chunkAtual.trim()) chunks.push(chunkAtual.trim());
+        return chunks;
+    }
+
+    function finalizarLeitura() {
+        estaLendo = false;
+        btnLeitura.classList.remove('lendo');
+        btnLeitura.querySelector('.icone').textContent = '🔊';
+        btnLeitura.querySelector('.texto').textContent = 'Ouvir';
+        btnLeitura.setAttribute('aria-label', 'Ouvir conteúdo da página (Alt + 2)');
+    }
+
+    window.alternarLeitura = function() {
+        if (estaLendo) {
+            synth.cancel();
+            finalizarLeitura();
+        } else {
+            const texto = obterTextoPrincipal();
+            if (!texto.trim()) {
+                alert('Não há conteúdo para ler.');
+                return;
+            }
+
+            const chunks = dividirTexto(texto, 200);
+            let indiceAtual = 0;
+
+            function lerProximoChunk() {
+                if (indiceAtual >= chunks.length || !estaLendo) {
+                    finalizarLeitura();
+                    return;
+                }
+
+                utterance = new SpeechSynthesisUtterance(chunks[indiceAtual]);
+                const voz = obterVozPtBr();
+                if (voz) utterance.voice = voz;
+                utterance.lang = 'pt-BR';
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                utterance.volume = 1;
+
+                utterance.onend = () => {
+                    indiceAtual++;
+                    lerProximoChunk();
+                };
+
+                utterance.onerror = (event) => {
+                    console.error('Erro na síntese de voz:', event);
+                    finalizarLeitura();
+                };
+
+                synth.speak(utterance);
+            }
+
+            estaLendo = true;
+            btnLeitura.classList.add('lendo');
+            btnLeitura.querySelector('.icone').textContent = '⏹️';
+            btnLeitura.querySelector('.texto').textContent = 'Parar';
+            btnLeitura.setAttribute('aria-label', 'Parar leitura em voz alta');
+            
+            lerProximoChunk();
+        }
+    };
+
+    if (btnLeitura) btnLeitura.addEventListener('click', window.alternarLeitura);
+
+    window.addEventListener('beforeunload', () => {
+        if (estaLendo) synth.cancel();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.altKey && e.key === '2') {
+            e.preventDefault();
+            window.alternarLeitura();
+        }
+    });
+})();
+</script>
+
+<!-- ========== IMPRESSÃO (OCULTA WIDGETS) ========== -->
+<script>
+let elementosOcultados = [];
+
+function ocultarWidgetsAcessibilidade() {
+    elementosOcultados = [];
+    const seletores = [
+        '[vw]', '.vw-access-button', '.vw-plugin-wrapper', '.vw-plugin-top-wrapper',
+        '.vpw-container', '.vpw-iframe-container', 'iframe[src*="vlibras"]',
+        '.uwy-userway', '.userway-accessibility-widget', '#userway',
+        'div[id*="userway"]', 'div[class*="userway"]', 'iframe[src*="userway"]',
+        '.btn-imprimir', '.btn-leitura'
+    ];
+    
+    seletores.forEach(seletor => {
+        document.querySelectorAll(seletor).forEach(el => {
+            elementosOcultados.push({
+                elemento: el,
+                displayOriginal: el.style.display,
+                visibilityOriginal: el.style.visibility
+            });
+            el.style.display = 'none';
+            el.style.visibility = 'hidden';
+        });
+    });
+    
+    if (window.speechSynthesis && window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+    }
+}
+
+function restaurarWidgetsAcessibilidade() {
+    elementosOcultados.forEach(item => {
+        try {
+            item.elemento.style.display = item.displayOriginal;
+            item.elemento.style.visibility = item.visibilityOriginal;
+        } catch(e) {}
+    });
+    elementosOcultados = [];
+}
+
+function imprimirDocumento() {
+    ocultarWidgetsAcessibilidade();
+    setTimeout(() => {
+        window.print();
+        setTimeout(restaurarWidgetsAcessibilidade, 300);
+    }, 100);
+}
+
+window.addEventListener('beforeprint', ocultarWidgetsAcessibilidade);
+
+window.addEventListener('afterprint', function() {
+    setTimeout(restaurarWidgetsAcessibilidade, 300);
+});
+
+document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+        e.preventDefault();
+        imprimirDocumento();
+    }
+});
+</script>
 
 </body>
 </html>
